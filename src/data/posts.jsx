@@ -2,6 +2,172 @@
 // `body` is JSX so posts can use any markup the article styles support.
 export const posts = [
   {
+    slug: 'defining-the-hackfluencer',
+    title: 'Defining the Hackfluencer — security research meets education',
+    date: '2026-07-29',
+    tags: ['research', 'security', 'education'],
+    excerpt:
+      'Not an influencer with a hacking hobby. A researcher who teaches. You build tools, publish findings, and help others understand how systems break — then how to defend them.',
+    body: (
+      <>
+        <p>
+          "Hackfluencer" gets thrown around for anyone with a Twitter following and a GitHub repo. But the real version is something different: it's a researcher who teaches, a builder who documents, someone who finds security issues and turns them into learning moments for everyone else.
+        </p>
+
+        <p>
+          If you've spent years building platforms in the dark, fixing issues no one knows about, it's natural to wonder: what's the point of research that stays locked in a private repo? The hackfluencer model answers that. You find real vulnerabilities, you build tools that expose them, you write about *why* it matters — and in doing that, you raise the baseline of how we all think about security.
+        </p>
+
+        <h2>What makes it different</h2>
+
+        <p>
+          An influencer talks about hacking. A hackfluencer *does* hacking, then teaches it.
+        </p>
+
+        <p>
+          The work comes first. You find a class of vulnerability nobody's talking about, or you reverse engineer a system nobody thought to check, or you spot a pattern in how real breaches happen. Then you build: a tool to detect it, a proof-of-concept, a dataset. Only then do you write. The writing isn't selling the research — it's *explaining* it so others can learn, build on it, and defend against it.
+        </p>
+
+        <p>
+          Influence is a side effect. You're influential because your work is real, your findings are reproducible, and your tools actually solve problems.
+        </p>
+
+        <h2>Why now</h2>
+
+        <p>
+          Security research used to be gatekept. You published in conferences or you worked at a consultancy. The barrier to entry was your credentials, not your ability.
+        </p>
+
+        <p>
+          Now? A well-documented tool on GitHub reaches more security teams than a white paper ever did. A blog post explaining a vulnerability reaches engineers faster than a CVE advisory. A CTF challenge or a walkthrough teaches attack thinking to thousands of people who will never work at a nation-state lab.
+        </p>
+
+        <p>
+          The hackfluencer doesn't replace formal research. They democratize it. They make the ideas, tools, and thinking of security research accessible to everyone building systems.
+        </p>
+
+        <h2>What to build (starter projects)</h2>
+
+        <p>
+          Don't wait for a revolutionary discovery. Start with what you see in your day job:
+        </p>
+
+        <h3>1. A detection tool for something you've already found</h3>
+
+        <p>
+          <strong>The credential scanner approach:</strong> You found exposed secrets in your organization's S3. Build the detector. Open-source it. Document what it catches, why, and how others can deploy it. Suddenly you're not just fixing your own problem — you're preventing it everywhere else.
+        </p>
+
+        <p>
+          <em>Why it works:</em> Solves a real problem. Reproducible. Useful immediately.
+        </p>
+
+        <h3>2. A reverse-engineering walkthrough</h3>
+
+        <p>
+          Pick a system that bothers you. Understand how it works. Write a step-by-step: what I assumed, what I found, what surprised me. Include screenshots, code snippets, the dead ends. Most people won't reverse engineer a black box. Show them it's learnable.
+        </p>
+
+        <p>
+          <em>Why it works:</em> Teaches methodology, not just secrets. People learn *how to think* about systems.
+        </p>
+
+        <h3>3. A CTF challenge or security puzzle</h3>
+
+        <p>
+          Take a vulnerability you've seen in the wild. Strip it down to its essence. Make a challenge: here's a vulnerable service, can you break it? Make the solution educational — the goal is the exploit, but the real win is understanding *why* it worked.
+        </p>
+
+        <p>
+          <em>Why it works:</em> People learn by doing. The vulnerability becomes intuitive, not abstract.
+        </p>
+
+        <h3>4. A comparison or analysis of how systems *really* break</h3>
+
+        <p>
+          You've seen breach postmortems. You've read incident reports. You know the common patterns nobody talks about in security talks. Write about them. Case study: three major breaches, one root cause that appears in all of them, why we keep missing it, what actually catches it.
+        </p>
+
+        <p>
+          <em>Why it works:</em> Practical. Patterns stick better than isolated findings.
+        </p>
+
+        <h3>5. A curated list of resources + your commentary</h3>
+
+        <p>
+          Don't just collect links. Annotate them. Why does this paper matter? What did the tool author get right? What are the blind spots? Your filtering and thinking is the value.
+        </p>
+
+        <p>
+          <em>Why it works:</em> Low effort, high impact. Shows judgment, not just curation.
+        </p>
+
+        <h2>The platforms that matter</h2>
+
+        <p>
+          You need a few places to publish:
+        </p>
+
+        <ul>
+          <li>
+            <strong>A blog.</strong> Long-form writing. This is where you explain the research in depth. (You're reading one right now.)
+          </li>
+          <li>
+            <strong>GitHub.</strong> The tools, the code, the reproducibility. The blog points here.
+          </li>
+          <li>
+            <strong>Twitter / X.</strong> The pointer. "I just published a tool to detect X vulnerability. Here's what it caught in a week of scanning." Links to the blog, which links to GitHub.
+          </li>
+          <li>
+            <strong>Maybe a conference or two.</strong> Not to build credibility — your work does that. But to reach practitioners who don't live on GitHub.
+          </li>
+        </ul>
+
+        <p>
+          Everything feeds back to the blog and the code. The audience is everywhere, but the research lives on your domain.
+        </p>
+
+        <h2>What you learn in the process</h2>
+
+        <p>
+          Teaching is better at forcing you to really understand something than just doing it. You find vulnerabilities and think "okay, fixed." You explain the vulnerability and think "wait, why *does* this happen?"
+        </p>
+
+        <p>
+          That's where depth comes from. The hackfluencer doesn't just accumulate findings — they build a mental model of systems, of how they fail, of what patterns matter. The blog is proof you understand.
+        </p>
+
+        <h2>The obvious concern</h2>
+
+        <p>
+          "Aren't I handing attackers a guide?"
+        </p>
+
+        <p>
+          Sometimes, yes. But the people who'd actually exploit that knowledge already know it. What you're doing is raising the bar for *defense*. You publish a detection tool; suddenly everyone's looking for the vulnerability you found. The attacker's job got harder.
+        </p>
+
+        <p>
+          Publish responsibly — give vendors time to patch. Don't include exploit code for zero-days. But publish. The security of systems gets better when more people understand how they break.
+        </p>
+
+        <h2>One year in</h2>
+
+        <p>
+          A year of this is a portfolio. Five tools published. A dozen blog posts. Real findings, real code, real impact. You've taught hundreds of people. You've helped teams find vulnerabilities they didn't know they had. You've shaped how a community thinks about one specific class of problems.
+        </p>
+
+        <p>
+          That's what a hackfluencer is. Not the audience count. Not the follower graph. The work, done in public, explained clearly, built to be useful.
+        </p>
+
+        <p>
+          Start with something small you've already found. Build the tool. Write it up. Ship it. That's the first step.
+        </p>
+      </>
+    ),
+  },
+  {
     slug: 'credential-scanner',
     title: 'How I found 100+ exposed secrets (and why your org probably has them too)',
     date: '2026-07-28',
