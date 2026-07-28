@@ -9,6 +9,10 @@ export default function Footer() {
           <a href={profile.github} target="_blank" rel="noreferrer">
             GitHub
           </a>{' '}
+          ·{' '}
+          <a href={profile.twitch} target="_blank" rel="noreferrer">
+            Twitch
+          </a>{' '}
           · <a href={`mailto:${profile.email}`}>Email</a>
         </span>
       </div>

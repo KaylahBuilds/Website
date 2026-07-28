@@ -3,6 +3,7 @@ export const profile = {
   name: 'Kaylah Gore',
   email: 'kaylah.gore@gmail.com',
   github: 'https://github.com/kaylahbuilds',
+  twitch: 'https://www.twitch.tv/kaylahbuilds',
   title: 'I build infrastructure that doesn\'t break at 3am',
   taglines: [
     'Building resilient platforms.',

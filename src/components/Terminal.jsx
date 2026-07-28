@@ -79,6 +79,7 @@ export default function Terminal() {
       contact: [
         { cls: 't-out', text: `email: ${profile.email}` },
         { cls: 't-out', text: `github: ${profile.github.replace('https://', '')}` },
+        { cls: 't-out', text: `twitch: ${profile.twitch.replace('https://', '')}` },
       ],
       sudo: [
         { cls: 't-red', text: 'sudo: kaylah is not in the sudoers file. This incident will be reported.' },
