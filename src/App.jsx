@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx'
 import Blog from './pages/Blog.jsx'
 import Post from './pages/Post.jsx'
 import Projects from './pages/Projects.jsx'
+import Project from './pages/Project.jsx'
 import Resume from './pages/Resume.jsx'
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<Post />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<Project />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="*" element={<Home />} />
           </Routes>

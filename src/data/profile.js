@@ -16,7 +16,6 @@ export const profile = {
   stats: [
     { value: 'Millions/day', label: 'Transactions handled by platforms I\'ve designed' },
     { value: '100+ found', label: 'Live credentials my scanner surfaced (before they became breaches)' },
-    { value: 'Zero incidents', label: 'From compliance bugs after standardizing policy-as-code' },
     { value: 'Across clouds', label: 'GCP, AWS, private infrastructure — same principles' },
   ],
   focus: [
