@@ -2,6 +2,140 @@
 // `body` is JSX so posts can use any markup the article styles support.
 export const posts = [
   {
+    slug: 'small-commits-big-signal',
+    title: 'Small Commits, Big Signal: Why Consistent Progress Beats the "Big Bang" Ship',
+    date: '2026-07-31',
+    tags: ['10x engineer', 'Tech lead', 'platform Engineering', 'GitHub'],
+    excerpt:
+      'Smaller commits with detailed PR notes and one branch per feature aren't just cleaner code practices—they're how you build credibility, keep your team aligned, and hit velocity that actually shows.',
+    body: (
+      <>
+        <p>
+          The old model was simple: code all week, ship one massive commit Friday. Vague PR notes. Everything lands at once. Done.
+        </p>
+
+        <p>
+          Except stakeholders don't see progress—they see a black box. And when something breaks, the commit history is useless.
+        </p>
+
+        <p>
+          I've learned the hard way that this is backwards. Smaller commits, detailed PR notes, and one branch per feature aren't just cleaner code practices. They're how you build credibility, keep your team aligned, and hit velocity that actually <em>shows</em>.
+        </p>
+
+        <p>
+          And the industry is catching on. GitHub didn't build Stacked PRs as a nice-to-have—they bet on it because high-velocity teams operate this way.
+        </p>
+
+        <h2>The Real Benefit: Team Signal</h2>
+
+        <p>
+          Here's what I didn't expect when I started shipping smaller commits: stakeholders started <em>trusting</em> the roadmap.
+        </p>
+
+        <p>
+          When you ship one massive PR once a day, leadership sees discrete "done" moments. But they're opaque. They can't tell if velocity is real or if work is getting stuck behind the scenes. Uncertainty erodes confidence.
+        </p>
+
+        <p>
+          Smaller commits change that. Every PR that merges is visible momentum. Not finished features—<em>progress</em>.
+        </p>
+
+        <p>
+          <strong>This does several things at once:</strong>
+        </p>
+
+        <ul>
+          <li>
+            <strong>Stakeholders see real momentum.</strong> One merged PR every few hours tells a story: "this team is shipping consistently." Leaders can measure throughput, track roadmap alignment, and trust the timeline.
+          </li>
+          <li>
+            <strong>Trust builds incrementally.</strong> Predictable, small deliveries compound. You're not asking for a big bet—you're delivering proof repeatedly. That's how credibility works.
+          </li>
+          <li>
+            <strong>Clear roadmap visibility.</strong> Instead of guessing where a big feature is in the pipeline, stakeholders see the actual breakdown: "auth refactor is 60% merged, payment integration is in review." Real data, not estimates.
+          </li>
+          <li>
+            <strong>Reduces "where is it?" friction.</strong> No more stakeholder anxiety. Work is live, reviewable, and measurable in real-time. You're not hiding progress—you're broadcasting it.
+          </li>
+          <li>
+            <strong>Psychological safety.</strong> Your team <em>feels</em> productive. Smaller PRs mean faster reviews, quicker approvals, fewer "blocked waiting for review" moments. That compounds into momentum.
+          </li>
+        </ul>
+
+        <p>
+          <strong>Why GitHub invested in Stacked PRs.</strong> This isn't an accident. GitHub's new Stacked PRs feature exists because the industry recognizes that this is how high-velocity teams operate. They're not inventing a new workflow—they're betting that the future of platform engineering looks like frequent, small, visible PRs. You're either ahead of that curve or you'll be playing catch-up.
+        </p>
+
+        <h2>What Makes This Work: The Practice</h2>
+
+        <p>
+          Small commits aren't just a git discipline—they're a communication choice. Here's how to make it stick:
+        </p>
+
+        <p>
+          <strong>Commit size:</strong> One logical change. If your commit message needs "and" in it, it's probably two commits. Aim for PRs that a senior engineer can review thoroughly in 15 minutes, not an hour.
+        </p>
+
+        <p>
+          <strong>PR notes that matter:</strong>
+        </p>
+        <ul>
+          <li>What problem does this solve? (one sentence max)</li>
+          <li>Why this approach? (trade-offs, alternatives considered)</li>
+          <li>How was it tested? (manual steps, test coverage, edge cases)</li>
+          <li>Any follow-ups? (known limitations, future work)</li>
+        </ul>
+
+        <p>
+          This isn't busywork—it's the difference between a PR that lands silently and one that builds organizational memory.
+        </p>
+
+        <p>
+          <strong>Branch per feature:</strong> Don't branch off branches unnecessarily, but <em>do</em> give each meaningful feature its own branch. This keeps main stable, makes rollbacks surgical, and lets you ship different features on different cadences.
+        </p>
+
+        <h2>The Secondary Benefits</h2>
+
+        <p>
+          Smaller commits unlock things that matter more than you'd think:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Faster reviews.</strong> Small = reviewable. That means PRs don't rot in queue. Your team unblocks faster.
+          </li>
+          <li>
+            <strong>Easier debugging.</strong> <code>git bisect</code> actually works. When something breaks, you can pinpoint the exact change. That's not just cleanup—that's confidence.
+          </li>
+          <li>
+            <strong>Better audit trail.</strong> Especially in security and compliance contexts, a clear commit history is an asset. Your future self (and auditors) will thank you.
+          </li>
+          <li>
+            <strong>Rollbacks don't cascade.</strong> A bad small commit can be reverted cleanly. A bad 2,000-line commit pulls half the codebase with it.
+          </li>
+        </ul>
+
+        <h2>The Closing Truth</h2>
+
+        <p>
+          You're not just shipping better code. You're <em>communicating</em> progress.
+        </p>
+
+        <p>
+          Every merged PR is a signal to your team, your stakeholders, and yourself: "this is moving." Consistency beats brilliance. Small, visible, frequent wins beat surprise big ships.
+        </p>
+
+        <p>
+          And if you're still shipping one monolithic commit a day, you're leaving velocity on the table. Not just in code quality—in how the world sees your team's impact.
+        </p>
+
+        <p>
+          The future of platform engineering is stacked PRs, small commits, and constant signal. You can get there now.
+        </p>
+      </>
+    ),
+  },
+  {
     slug: 'defining-the-hackfluencer',
     title: 'Defining the Hackfluencer — security research meets education',
     date: '2026-07-29',
