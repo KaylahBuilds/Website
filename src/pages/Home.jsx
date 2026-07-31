@@ -3,13 +3,16 @@ import { motion } from 'framer-motion'
 import PageWrap from '../components/PageWrap.jsx'
 import Reveal from '../components/Reveal.jsx'
 import Terminal from '../components/Terminal.jsx'
+import Carousel from '../components/Carousel.jsx'
 import { useTypewriter } from '../hooks/useTypewriter.js'
 import { profile } from '../data/profile.js'
 import { posts } from '../data/posts.jsx'
+import { projects } from '../data/projects.js'
 
 export default function Home() {
   const { text, reduced } = useTypewriter(profile.taglines)
   const latest = posts[0]
+  const featured = [...posts, ...projects].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 8)
 
   return (
     <PageWrap>
@@ -41,16 +44,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        <section className="stats">
-          {profile.stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 0.08}>
-              <div className="stat">
-                <div className="stat-value">{s.value}</div>
-                <div className="stat-label">{s.label}</div>
-              </div>
-            </Reveal>
-          ))}
-        </section>
+        <Carousel items={featured} />
 
         <section className="section">
           <Reveal>
