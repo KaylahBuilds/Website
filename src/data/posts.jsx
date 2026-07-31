@@ -7,7 +7,7 @@ export const posts = [
     date: '2026-07-31',
     tags: ['10x engineer', 'Tech lead', 'platform Engineering', 'GitHub'],
     excerpt:
-      'Smaller commits with detailed PR notes and one branch per feature aren't just cleaner code practices—they're how you build credibility, keep your team aligned, and hit velocity that actually shows.',
+      "Smaller commits with detailed PR notes and one branch per feature aren't just cleaner code practices—they're how you build credibility, keep your team aligned, and hit velocity that actually shows.",
     body: (
       <>
         <p>
