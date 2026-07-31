@@ -11,7 +11,6 @@ import { projects } from '../data/projects.js'
 
 export default function Home() {
   const { text, reduced } = useTypewriter(profile.taglines)
-  const latest = posts[0]
   const featured = [...posts, ...projects].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 8)
 
   return (
@@ -68,25 +67,53 @@ export default function Home() {
 
         <section className="section">
           <Reveal>
-            <p className="kicker">latest post</p>
-            <h2 className="section-title">From the blog</h2>
+            <p className="kicker">stay connected</p>
+            <h2 className="section-title">Subscribe & reach out</h2>
           </Reveal>
-          <Reveal>
-            <Link to={`/blog/${latest.slug}`} className="card-link">
+
+          <div className="contact-grid">
+            <Reveal>
               <div className="card">
-                <p className="meta">{latest.date}</p>
-                <h3>{latest.title}</h3>
-                <p>{latest.excerpt}</p>
-                <div className="tag-row">
-                  {latest.tags.map((t, i) => (
-                    <span key={t} className={`tag${i % 2 ? ' blue' : ''}`}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                <h3>Subscribe to posts</h3>
+                <p>Get new articles on platform engineering, security, and infrastructure delivered to your inbox.</p>
+                <form className="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary btn-sm">
+                    Subscribe
+                  </button>
+                </form>
               </div>
-            </Link>
-          </Reveal>
+            </Reveal>
+
+            <Reveal delay={0.06}>
+              <div className="card">
+                <h3>Send me a message</h3>
+                <p>Have a question, idea, or just want to chat? Drop me a line and I'll get back to you.</p>
+                <form className="contact-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="your@email.com"
+                    required
+                  />
+                  <textarea
+                    name="message"
+                    placeholder="Your message..."
+                    rows="4"
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary btn-sm">
+                    Send
+                  </button>
+                </form>
+              </div>
+            </Reveal>
+          </div>
         </section>
       </div>
     </PageWrap>

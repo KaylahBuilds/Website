@@ -441,6 +441,52 @@ main { min-height: 100vh; padding: calc(var(--nav-h) + 3rem) 0 4rem; }
 }
 
 /* =====================================================
+   Contact & Subscribe
+   ===================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: var(--bg-raise);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(98, 182, 255, 0.1);
+}
+
+.btn-sm {
+  padding: 0.65rem 1.2rem;
+  font-size: 0.9rem;
+}
+
+/* =====================================================
    Resume timeline
    ===================================================== */
 .timeline { position: relative; margin-top: 1rem; padding-left: 2rem; }
@@ -549,6 +595,8 @@ main { min-height: 100vh; padding: calc(var(--nav-h) + 3rem) 0 4rem; }
 
   /* Three stats side by side is unreadable at phone widths. */
   .stats { grid-template-columns: 1fr; margin-top: 2.75rem; }
+
+  .contact-grid { grid-template-columns: 1fr; }
 
   .terminal-body { height: 300px; }
   .section { margin-top: 2.75rem; }
