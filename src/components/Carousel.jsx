@@ -14,7 +14,7 @@ export default function Carousel({ items }) {
   }, [items.length])
 
   const item = items[current]
-  const isProject = item.slug && item.tags // Projects have tags
+  const isProject = item.kind === 'project'
 
   return (
     <section className="section carousel-section">
@@ -38,7 +38,7 @@ export default function Carousel({ items }) {
               className="card-link"
             >
               <div className="card carousel-card">
-                <p className="meta">{item.date || 'Project'}</p>
+                <p className="meta">{isProject ? 'Project' : item.date}</p>
                 <h3>{item.title}</h3>
                 <p>{isProject ? item.description : item.excerpt}</p>
                 <div className="tag-row">

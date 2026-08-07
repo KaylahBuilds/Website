@@ -11,7 +11,14 @@ import { projects } from '../data/projects.js'
 
 export default function Home() {
   const { text, reduced } = useTypewriter(profile.taglines)
-  const featured = [...posts, ...projects].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 8)
+  // Projects carry no date; fall back to 0 so they sort after dated posts
+  // in a stable order instead of NaN-shuffling the list.
+  const featured = [
+    ...posts.map((p) => ({ ...p, kind: 'post' })),
+    ...projects.map((p) => ({ ...p, kind: 'project' })),
+  ]
+    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+    .slice(0, 8)
 
   return (
     <PageWrap>
