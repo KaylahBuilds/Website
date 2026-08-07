@@ -10,13 +10,19 @@ import Post from './pages/Post.jsx'
 import Projects from './pages/Projects.jsx'
 import Project from './pages/Project.jsx'
 import Resume from './pages/Resume.jsx'
+import { initAnalytics, countPageview } from './lib/goatcounter.js'
 
 export default function App() {
   const location = useLocation()
 
-  // Scroll to top on route change
+  useEffect(() => {
+    initAnalytics()
+  }, [])
+
+  // Scroll to top and record the pageview on route change
   useEffect(() => {
     window.scrollTo(0, 0)
+    countPageview(location.pathname)
   }, [location.pathname])
 
   return (

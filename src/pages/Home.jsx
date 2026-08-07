@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import PageWrap from '../components/PageWrap.jsx'
@@ -8,21 +9,41 @@ import { useTypewriter } from '../hooks/useTypewriter.js'
 import { profile } from '../data/profile.js'
 import { posts } from '../data/posts.jsx'
 import { projects } from '../data/projects.js'
+import { fetchViewCounts } from '../lib/goatcounter.js'
 
 export default function Home() {
   const { text, reduced } = useTypewriter(profile.taglines)
+
+  // Live view counts from GoatCounter; null until they arrive (or forever,
+  // when analytics aren't configured — ranking then falls back to recency).
+  const [views, setViews] = useState(null)
+  useEffect(() => {
+    const paths = [
+      ...posts.map((p) => `/blog/${p.slug}`),
+      ...projects.map((p) => `/projects/${p.slug}`),
+    ]
+    fetchViewCounts(paths).then((v) => {
+      if (Object.values(v).some((n) => n > 0)) setViews(v)
+    })
+  }, [])
+
   // Alternate posts and projects so the carousel features both evenly.
-  // Within each list an optional `views` field ranks first (unset until
-  // the site has analytics), then recency; projects carry no date, so
-  // sort() stability keeps them in curated order.
+  // Within each list view count ranks first, then recency; projects carry
+  // no date, so sort() stability keeps them in curated order.
+  const withViews = (list, kind, base) =>
+    list.map((p) => ({
+      ...p,
+      kind,
+      views: (views && views[`${base}/${p.slug}`]) || p.views || 0,
+    }))
   const rank = (list) =>
     [...list].sort(
       (a, b) =>
         (b.views || 0) - (a.views || 0) ||
         new Date(b.date || 0) - new Date(a.date || 0)
     )
-  const rankedPosts = rank(posts).map((p) => ({ ...p, kind: 'post' }))
-  const rankedProjects = rank(projects).map((p) => ({ ...p, kind: 'project' }))
+  const rankedPosts = rank(withViews(posts, 'post', '/blog'))
+  const rankedProjects = rank(withViews(projects, 'project', '/projects'))
   const featured = []
   for (let i = 0; featured.length < 8 && (rankedPosts[i] || rankedProjects[i]); i++) {
     if (rankedPosts[i]) featured.push(rankedPosts[i])
