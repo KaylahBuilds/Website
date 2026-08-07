@@ -11,14 +11,23 @@ import { projects } from '../data/projects.js'
 
 export default function Home() {
   const { text, reduced } = useTypewriter(profile.taglines)
-  // Projects carry no date; fall back to 0 so they sort after dated posts
-  // in a stable order instead of NaN-shuffling the list.
-  const featured = [
-    ...posts.map((p) => ({ ...p, kind: 'post' })),
-    ...projects.map((p) => ({ ...p, kind: 'project' })),
-  ]
-    .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
-    .slice(0, 8)
+  // Alternate posts and projects so the carousel features both evenly.
+  // Within each list an optional `views` field ranks first (unset until
+  // the site has analytics), then recency; projects carry no date, so
+  // sort() stability keeps them in curated order.
+  const rank = (list) =>
+    [...list].sort(
+      (a, b) =>
+        (b.views || 0) - (a.views || 0) ||
+        new Date(b.date || 0) - new Date(a.date || 0)
+    )
+  const rankedPosts = rank(posts).map((p) => ({ ...p, kind: 'post' }))
+  const rankedProjects = rank(projects).map((p) => ({ ...p, kind: 'project' }))
+  const featured = []
+  for (let i = 0; featured.length < 8 && (rankedPosts[i] || rankedProjects[i]); i++) {
+    if (rankedPosts[i]) featured.push(rankedPosts[i])
+    if (rankedProjects[i] && featured.length < 8) featured.push(rankedProjects[i])
+  }
 
   return (
     <PageWrap>
