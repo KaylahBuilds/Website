@@ -10,6 +10,10 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.preview/
+# Full-resolution source artwork stays local; the site uses the optimized WebP.
+public/images/platform-night.png
+public/images/platform-night-v2.png
 *.local
 
 # Editor directories and files

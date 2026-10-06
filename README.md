@@ -1,7 +1,7 @@
-# kaylah.dev — Personal Portfolio
+# Kaylah Builds — Personal Portfolio
 
-React + Vite portfolio: interactive terminal hero, animated particle network,
-framer-motion transitions, timeline resume, and a data-driven blog.
+React + Vite portfolio: cinematic platform-engineering showcases, dark editorial
+blog cards, guide-style articles, an interactive terminal, and a timeline resume.
 
 ## Develop
 
@@ -26,23 +26,53 @@ All content is data — no digging through markup to edit:
 
 ## Deploy (GitHub Pages)
 
-1. Create a repo and push this folder:
+The repository is [KaylahBuilds/Website](https://github.com/KaylahBuilds/Website).
+In repository Settings → Pages, set Source to **GitHub Actions**. The included
+workflow (`.github/workflows/deploy.yml`) builds and deploys every push to `main`.
+Publishing a commit publishes all changes in that commit, not just the domain.
 
-   ```bash
-   git init
-   git add .
-   git commit -m "Portfolio"
-   git branch -M main
-   git remote add origin https://github.com/kaylahbuilds/portfolio.git
-   git push -u origin main
-   ```
+Hash-based routing and relative asset paths support both the original GitHub
+Pages URL and the custom domain without a Vite base-path change.
 
-2. In the repo settings → **Pages** → set Source to **GitHub Actions**.
+### Custom domain: kaylahbuilds.io
 
-The included workflow (`.github/workflows/deploy.yml`) builds and deploys on
-every push to `main`. The site uses hash-based routing and relative asset
-paths, so it works at any Pages URL with zero config. A custom domain can be
-added later in the same Pages settings screen.
+Site files are prepared for `https://kaylahbuilds.io/`; live configuration still
+requires the account settings below. `public/CNAME` is copied into the build, but
+GitHub Actions deployments do **not** use it to set the Pages custom domain.
+
+1. In your **GitHub account** Settings → Pages, add and verify `kaylahbuilds.io`.
+   GitHub supplies a unique TXT record; add its exact host and value in Spaceship
+   Advanced DNS, then complete verification in GitHub. Keep that TXT record.
+2. In **KaylahBuilds/Website** Settings → Pages → Custom domain, enter
+   `kaylahbuilds.io` and save it **before** pointing website DNS at GitHub.
+3. In Spaceship → Advanced DNS → `kaylahbuilds.io`, add these website records
+   if Spaceship is the domain's active DNS provider:
+
+   | Type | Host | Value |
+   |---|---|---|
+   | A | @ | 185.199.108.153 |
+   | A | @ | 185.199.109.153 |
+   | A | @ | 185.199.110.153 |
+   | A | @ | 185.199.111.153 |
+   | CNAME | www | kaylahbuilds.github.io |
+
+   Use the provider's default TTL. Check existing records for conflicts at `@`
+   and `www` before replacing website/parking records. Preserve email records
+   (MX, SPF, DKIM, DMARC), verification TXT records, and unrelated subdomains.
+   Do not use URL forwarding or wildcard DNS. If custom nameservers are active,
+   make these changes at that DNS provider instead of changing nameservers.
+4. Publish the approved site changes to `main`, confirm the deployment succeeds,
+   and let DNS and certificate provisioning finish. In repository Pages settings,
+   enable **Enforce HTTPS** when available. Check both `https://kaylahbuilds.io/`
+   and `https://www.kaylahbuilds.io/`; `www` should redirect to the primary domain.
+
+DNS changes and HTTPS availability can take up to 24 hours. The browser routes
+remain `/#/blog`, `/#/projects`, and `/#/resume`; a custom domain alone does not
+remove hash routing.
+
+References: [GitHub custom-domain setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site),
+[GitHub domain verification](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/verifying-your-custom-domain-for-github-pages),
+[Spaceship DNS management](https://www.spaceship.com/domain-management/).
 
 ## Notes
 

@@ -7,7 +7,7 @@ const PROMPT = 'kaylah@platform ~ %'
 const BOOT_LINES = [
   { cls: 't-out', text: 'Booting kaylah.dev terminal…' },
   { cls: 't-out', text: 'Loading: resilience ✓  security ✓  coffee ✓' },
-  { cls: 't-accent', text: 'Welcome. This terminal is real — try typing something.' },
+  { cls: 't-accent', text: 'Welcome to the portfolio playground. Try a command.' },
   { cls: 't-out', text: "Type 'help' or 'whoami' to get started." },
 ]
 
@@ -130,7 +130,7 @@ export default function Terminal() {
       return
     }
 
-    const out = outputs[name] || [
+    const out = outputs[cmd.toLowerCase()] || outputs[name] || [
       { cls: 't-red', text: `command not found: ${name}` },
       { cls: 't-out', text: "Type 'help' for available commands." },
     ]

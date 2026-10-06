@@ -6,12 +6,12 @@ import { summary, competencies, experience, certifications } from '../data/resum
 export default function Resume() {
   return (
     <PageWrap>
-      <div className="container">
-        <p className="kicker">cat resume.txt</p>
-        <h1 className="page-title gradient-text">{profile.name}</h1>
-        <p className="page-sub">{profile.title}</p>
-
-        <div className="btn-row" style={{ marginBottom: '2.5rem' }}>
+      <header className="content-hero resume-hero">
+        <div className="container">
+        <p className="content-kicker">Career record · Platform + security</p>
+        <h1>{profile.name}</h1>
+        <p>{profile.title}</p>
+        <div className="btn-row">
           <a className="btn btn-primary" href="./Kaylah-Gore-Resume.docx" download>
             Download resume
           </a>
@@ -19,14 +19,23 @@ export default function Resume() {
             Get in touch
           </a>
         </div>
+        </div>
+      </header>
+      <nav className="content-subnav" aria-label="Resume sections">
+        {['Summary', 'Competencies', 'Experience', 'Certifications'].map((label) => <button type="button" key={label} onClick={() => document.getElementById(label.toLowerCase())?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })}>{label}</button>)}
+      </nav>
 
-        <Reveal>
+      <div className="reading-shell resume-shell">
+
+        <Reveal id="summary" className="resume-section">
+          <span className="section-label">01 · Profile</span>
           <h2 className="section-title">Summary</h2>
           <p style={{ color: 'var(--text-dim)', maxWidth: '72ch' }}>{summary}</p>
         </Reveal>
 
-        <section className="section">
+        <section className="resume-section" id="competencies">
           <Reveal>
+            <span className="section-label">02 · Capabilities</span>
             <h2 className="section-title">Core competencies</h2>
             <div className="chip-grid">
               {competencies.map((c) => (
@@ -38,8 +47,9 @@ export default function Resume() {
           </Reveal>
         </section>
 
-        <section className="section">
+        <section className="resume-section" id="experience">
           <Reveal>
+            <span className="section-label">03 · Track record</span>
             <h2 className="section-title">Experience</h2>
           </Reveal>
           <div className="timeline">
@@ -61,8 +71,9 @@ export default function Resume() {
           </div>
         </section>
 
-        <section className="section">
+        <section className="resume-section" id="certifications">
           <Reveal>
+            <span className="section-label">04 · Credentials</span>
             <h2 className="section-title">Certifications</h2>
             <div className="chip-grid">
               {certifications.map((c) => (

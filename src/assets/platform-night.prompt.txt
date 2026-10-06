@@ -1,0 +1,13 @@
+Generated with the built-in image-generation tool for the portfolio redesign.
+
+Use case: stylized-concept. Asset type: wide cinematic background for a professional platform engineering and security research portfolio, designed to match an image-led dark GTA-inspired website.
+
+Scene: a photorealistic cinematic Los Angeles-like modern city at night seen from the rooftop of an industrial datacenter; architectural glass towers and a dense street grid, realistic server equipment and cables in a dark foreground on the right, long light trails and a single striking acid-lime light beam through light haze. No people.
+
+Composition: very wide horizontal landscape, no text at all; left 55 percent stays extremely dark, low-detail and usable for large white website text; cinematic detailed action and architecture concentrated right 45 percent.
+
+Palette: near-black charcoal, warm distant amber windows, restrained magenta lighting and teal illumination, a small vivid acid-lime accent; rich photographic textures and dramatic contrasts rather than abstract gradients.
+
+Camera: low wide-angle establishing shot, realistic scale, atmospheric grain. Mood: ambitious, nocturnal, metropolitan, high-stakes creative engineering.
+
+Constraints: no logos, no HUD, no icons, no letters, no readable screens, no people, no brands, no watermarks, no typography, no superhero or sci-fi spaceships. Deliver a finished polished wide background illustration, not a website mockup.

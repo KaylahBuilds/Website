@@ -1,9 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
-import ParticleField from './components/ParticleField.jsx'
 import Home from './pages/Home.jsx'
 import Blog from './pages/Blog.jsx'
 import Post from './pages/Post.jsx'
@@ -27,11 +25,15 @@ export default function App() {
 
   return (
     <>
-      <ParticleField />
+      <a className="skip-link" href="#main-content" onClick={(event) => {
+        event.preventDefault()
+        const main = document.getElementById('main-content')
+        main?.scrollIntoView({ behavior: 'auto' })
+        main?.focus({ preventScroll: true })
+      }}>Skip to content</a>
       <Nav />
-      <main>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
+      <main id="main-content" tabIndex={-1}>
+          <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<Post />} />
@@ -40,7 +42,6 @@ export default function App() {
             <Route path="/resume" element={<Resume />} />
             <Route path="*" element={<Home />} />
           </Routes>
-        </AnimatePresence>
       </main>
       <Footer />
     </>
