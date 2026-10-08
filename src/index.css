@@ -1292,6 +1292,21 @@ code {
   padding:0;
   border:0
 }
+.article-figure {
+  margin:32px 0
+}
+.article-figure img {
+  display:block;
+  width:100%;
+  height:auto;
+  border:1px solid var(--border)
+}
+.article-figure figcaption {
+  margin-top:12px;
+  color:var(--text-faint);
+  font-size:14px;
+  line-height:1.6
+}
 .article-next {
   display:flex;
   justify-content:space-between;
