@@ -1,6 +1,9 @@
 // Blog posts. To add one: append an object here with a unique `slug`.
 // `body` is JSX so posts can use any markup the article styles support.
+import { dgxSparkGitOpsPost } from './posts/dgx-spark-gitops.jsx'
+
 export const posts = [
+  dgxSparkGitOpsPost,
   {
     slug: 'small-commits-big-signal',
     title: 'Small Commits, Big Signal: Why Consistent Progress Beats the "Big Bang" Ship',
