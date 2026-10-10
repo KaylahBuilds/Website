@@ -93,7 +93,7 @@ export default function Home() {
 
       <section className="container notes-preview">
         <div className="section-heading">
-          <div><p className="kicker">Research &amp; practice</p><h2 className="section-title">Field notes.<br /><em>No black boxes.</em></h2></div>
+          <div><p className="kicker">Research &amp; practice</p><h2 className="section-title">Behind the build.<br /><em>Decisions. Tradeoffs. Lessons.</em></h2></div>
           <Link className="text-link" to="/blog">All blogs <span>↗</span></Link>
         </div>
         <div className="notes-preview-grid">

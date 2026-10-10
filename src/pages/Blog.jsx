@@ -22,8 +22,8 @@ export default function Blog() {
       <header className="content-hero guide-index-hero">
         <div className="container">
           <p className="content-kicker">The field notes / Research &amp; practice</p>
-          <h1 className="guide-index-title">Notes from<br /><em>the field.</em></h1>
-          <p>How I build platforms, investigate security, and make engineering work better. The decisions, the lessons, and what happened along the way.</p>
+          <h1 className="guide-index-title">Behind the build.<br /><em>Decisions. Tradeoffs. Lessons.</em></h1>
+          <p>Field notes on platform engineering, security research, and developer experience—the decisions, tradeoffs, and lessons behind the work.</p>
         </div>
       </header>
 
