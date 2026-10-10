@@ -32,7 +32,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="kicker"><span className="live-dot" /> Platform engineering · security research</p>
             <h1 className="hero-name">Complex systems.<br /><em>Built to hold.</em></h1>
-            <p className="hero-blurb">I build platforms that stay standing, make security part of the system, and give engineers the confidence to ship.</p>
+            <p className="hero-blurb">I build secure, resilient platforms that empower engineers to ship with confidence.</p>
             <div className="btn-row">
               <Link className="btn btn-primary" to="/projects">Explore the work <span>→</span></Link>
               <Link className="btn btn-ghost" to="/blog">Read the field notes</Link>
