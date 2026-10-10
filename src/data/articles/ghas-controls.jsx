@@ -1,10 +1,10 @@
 export default {
   slug: 'ghas-controls-automation-remediation',
-  title: 'Security Alerts Are Not a Security Strategy: Making GitHub Controls Count',
+  title: 'GitHub Security as Code: Controls, Tradeoffs, and Terraform',
   date: '2026-10-10',
-  tags: ['security', 'GitHub', 'devsecops'],
+  tags: ['security', 'Terraform', 'devsecops'],
   excerpt:
-    'A hands-on GitHub security lab that connects detection, safe automation, enforceable review, and fixes you can actually verify.',
+    'A Terraform-first approach to GitHub security: reviewable control changes, explicit repository ownership, and remediation you can verify.',
   body: (
     <>
       <p className="section-label">Security lab series / 01</p>
@@ -14,11 +14,10 @@ export default {
         useful signals; engineering decisions turn those signals into protection.
       </p>
       <p>
-        The GHAS Controls Lab explores that gap with a runnable, audit-first workflow. Its examples
-        connect GitHub settings to practical remediation instead of treating feature enablement as
-        the finish line. The project currently has 23 passing offline tests. It remains local, with
-        source publication pending: no live repository settings were changed, and no GitHub CI or
-        scanning runs were performed to validate it.
+        The GHAS Controls Lab uses Terraform to express the desired repository controls, review
+        changes as a plan, and apply them deliberately. Application fixes remain a separate workflow:
+        enabling a setting is not the same as repairing a vulnerable query, updating a dependency,
+        or revoking a leaked credential. That distinction is the point of this lab.
       </p>
 
       <h2>Know what you are enabling</h2>
@@ -66,27 +65,86 @@ export default {
         fewer interception points—not proof that every unscanned repository is compromised.
       </p>
 
-      <h2>Audit first. Apply narrowly.</h2>
+      <h2>Manage controls with Terraform</h2>
       <p>
-        The lab’s Python runner targets one explicitly named repository. Fixture mode works
-        offline; live mode uses an existing GitHub CLI login and defaults to read-only calls.
-        Reports contain allowlisted settings, not exposed secret values. Missing permissions and
-        ambiguous responses remain unknown rather than being mislabeled as disabled.
+        The configuration pins <code>integrations/github</code> to version <code>6.13.0</code>.
+        For an existing repository, dedicated resources manage Dependabot alerts and security-update
+        PRs without taking ownership of the repository's visibility, merge settings, or lifecycle.
+        The minimal resource pair below illustrates that boundary; it is not the complete lab module.
       </p>
-      <pre><code>{`python tools/run_tests.py
-python tools/audit_repo.py --repo example-owner/controls-lab \\
-  --fixture fixtures/public-disabled.json`}</code></pre>
+      <pre><code>{`resource "github_repository_vulnerability_alerts" "baseline" {
+  repository = var.repository_name
+  enabled    = true
+
+  lifecycle { prevent_destroy = true }
+}
+
+resource "github_repository_dependabot_security_updates" "baseline" {
+  repository = var.repository_name
+  enabled    = true
+  depends_on = [github_repository_vulnerability_alerts.baseline]
+
+  lifecycle { prevent_destroy = true }
+}`}</code></pre>
       <p>
-        Real writes require both <code>--apply</code> and an exact repository confirmation. The
-        allowed operations are deliberately limited: Dependabot alerts, security-update PRs, and
-        push protection when secret scanning already exists. The tool does not purchase products,
-        enable paid scanning, merge PRs, or rewrite history.
+        Set the owner explicitly in the provider, supply only a repository name to these resources,
+        and authenticate outside the configuration. Use the provider's documented import procedure
+        when adopting existing settings, and never manage the same object from two states. Review the
+        pinned resource definitions for{' '}
+        <a href="https://github.com/integrations/terraform-provider-github/blob/v6.13.0/docs/resources/repository_vulnerability_alerts.md">vulnerability alerts</a>{' '}
+        and <a href="https://github.com/integrations/terraform-provider-github/blob/v6.13.0/docs/resources/repository_dependabot_security_updates.md">security updates</a>.
+      </p>
+
+      <h2>Separate an existing baseline from a disposable sandbox</h2>
+      <p>
+        The <code>terraform/existing-controls</code> root targets one existing repository. The
+        separate <code>terraform/sandbox-security</code> root demonstrates Code Security, secret
+        scanning, and push protection through <code>github_repository.security_and_analysis</code>.
+        That second root owns a new disposable repository; do not import a production repository
+        into it just to flip security settings. Its defaults would become a wider configuration decision.
+      </p>
+      <p>
+        Paid capabilities require an explicit entitlement and cost review, not just a Boolean in a
+        variables file. For public repositories, the sandbox also avoids setting the advanced-security flag
+        that GitHub manages automatically. See the pinned{' '}
+        <a href="https://github.com/integrations/terraform-provider-github/blob/v6.13.0/docs/resources/repository.md">repository resource documentation</a>.
+        {' '}Neither example purchases a subscription or proves that scanning has run.
+      </p>
+
+      <h2>Review the plan, then verify the effect</h2>
+      <p>
+        After reviewing inputs, authentication, imports, and state ownership, work from the selected
+        Terraform root. Format and validate the configuration before generating a saved plan:
+      </p>
+      <pre><code>{`terraform init
+terraform fmt -check
+terraform validate
+terraform plan -out=reviewed.tfplan
+terraform show reviewed.tfplan
+# Only after reviewing the exact target and every change:
+terraform apply reviewed.tfplan`}</code></pre>
+      <p>
+        A normal plan reads remote configuration but does not apply repository changes. A saved-plan
+        apply does not ask for another interactive approval, so the review happens before that command.
+        Stop on unexpected deletion, visibility changes, or unknown feature access. The{' '}
+        <a href="https://developer.hashicorp.com/terraform/cli/commands/plan">Terraform plan reference</a>{' '}
+        describes this separation; a clean plan is not evidence of a clean vulnerability scan.
+      </p>
+      <p>
+        Keep tokens and private keys out of HCL and variables files. Treat state, saved plans, and
+        JSON plan output as sensitive, and keep them out of Git; <code>sensitive = true</code> hides
+        values in some output but does not encrypt state. Use a protected backend with appropriate
+        access controls for shared work. Follow{' '}
+        <a href="https://developer.hashicorp.com/terraform/language/manage-sensitive-data">HashiCorp's sensitive-data guidance</a>.
+        {' '}Also review destroy behavior: removing a resource block can remove its
+        <code> prevent_destroy</code> guard, and destroying a settings resource can disable a control.
       </p>
 
       <h2>Fix the behavior, not the alert count</h2>
       <h3>A query needs two separate protections</h3>
       <p>
-        The SQL exercise starts with an unsafe lookup that concatenates an email and omits tenant
+        Terraform owns control configuration; Python is used only for this application-remediation
+        example and its tests. The SQL exercise starts with an unsafe lookup that concatenates an email and omits tenant
         scope. The safe implementation binds both values:
       </p>
       <pre><code>{`connection.execute(
@@ -114,9 +172,15 @@ python tools/audit_repo.py --repo example-owner/controls-lab \\
       <h2>Make the merge gate real</h2>
       <p>
         Workflow templates end in <code>.example</code> and use manual triggers, so publication
-        alone activates nothing. The ruleset example starts disabled. Before requiring a check,
+        alone activates nothing. The optional Terraform ruleset starts disabled. Before requiring a check,
         ensure it runs on every relevant PR and confirm a failing sandbox change blocks merging.
         A successful analysis job is not a zero-vulnerability assertion.
+      </p>
+      <p>
+        The pinned provider does not expose a CodeQL default-setup resource. Configure default setup
+        deliberately through GitHub, or activate the reviewed advanced workflow—not both.
+        Enabling Code Security is a prerequisite decision, not a substitute for configuring and
+        validating the scanner.
       </p>
       <p>
         Actions are pinned to full commit SHAs, but pins still need reviewed updates. Keep workflow
@@ -127,12 +191,18 @@ python tools/audit_repo.py --repo example-owner/controls-lab \\
         </a>.
       </p>
 
-      <h2>Try the decision before the deployment</h2>
+      <h2>Validate the control, not just the configuration</h2>
+      <ol>
+        <li>Confirm repository scope, state ownership, permissions, and feature entitlement before planning.</li>
+        <li>Run formatting, validation, and mocked Terraform tests; distinguish them from a real GitHub integration test.</li>
+        <li>Review the saved plan, apply only in an authorized sandbox, then inspect the actual control settings.</li>
+        <li>Verify required checks block an intentionally failing PR and supported secret test patterns trigger protection without using a real credential.</li>
+        <li>Run the remediation regression tests, rescan the changed revision, and confirm the corrected artifact reaches deployment.</li>
+      </ol>
       <p>
-        Run both offline fixtures, including the private-unlicensed case. Explain which controls
-        are available, which settings are unknown, and what authority a write requires. Then run
-        the SQL tests and write a short remediation note identifying the fix, verification evidence,
-        and remaining limitations. That is the useful outcome: a reviewable security decision.
+        No live Terraform apply, GitHub control activation, or scanner run has been performed for this
+        walkthrough. Treat its examples as a starting point for the checks above, not production
+        validation or an automatic incident-response system.
       </p>
       <p>
         Continue the series with{' '}

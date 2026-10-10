@@ -94,14 +94,35 @@ const post = {
         container's OS packages are safe.
       </p>
 
-      <h2>Evidence before confidence</h2>
+      <h2>Validate before granting release authority</h2>
+      <ol>
+        <li>
+          Run the offline policy validator, syntax checks, and unit tests. Confirm that substituted
+          images, host mounts, ignored failures, and unauthorized release metadata are rejected.
+        </li>
+        <li>
+          Run Semgrep, Trivy, and Gitleaks in an isolated sandbox. Add intentionally failing test
+          cases, using only fake credentials, and verify that findings actually stop the pipeline.
+        </li>
+        <li>
+          Validate configuration with the matching Woodpecker CLI, then exercise the real CI and
+          Compose deployment. Check OAuth restrictions, TLS certificate verification, and approval
+          behavior rather than relying on configuration inspection alone.
+        </li>
+        <li>
+          Test an untrusted pull request with harmless canaries, not production secrets. Confirm
+          secret isolation, server-side runner restrictions, and complete VM teardown and token
+          revocation after each workflow.
+        </li>
+        <li>
+          Keep release disabled until reviewed image digests, protected configuration, and release
+          gates are verified. Reject invalid tags or commits, check artifact hashes, and describe
+          unsigned provenance accurately instead of treating it as an attestation.
+        </li>
+      </ol>
       <p>
-        All 23 offline tests passed locally. They exercise input handling, reproducible artifacts,
-        and policy mutations involving PR secrets, substituted images, mounts, ignored failures,
-        and release bypasses. Scanners, containers, native Woodpecker validation, Compose, and live
-        TLS or OAuth were not run. The project repository remains local and unpublished. The next
-        proof is a controlled staging run, including deliberately failing security cases, before
-        granting publishing authority.
+        Live scanner, container, TLS, and OAuth validation is still outstanding for this lab.
+        Complete those checks before granting publishing authority.
       </p>
       <p>
         Continue the series with{' '}
