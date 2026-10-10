@@ -27,7 +27,7 @@ export default function Home() {
         <div className="hero-shade" aria-hidden="true" />
         <div className="hero-noise" aria-hidden="true" />
         <div className="hud-corners" aria-hidden="true"><i /><i /><i /><i /></div>
-        <div className="hero-status"><span>PLATFORM / SECURITY</span><strong>BUILT FOR PRESSURE</strong><small>KAYLAH GORE · ENGINEER</small></div>
+        <div className="hero-status"><span>PLATFORM ENGINEERING / SECURITY</span><strong>BUILT FOR RESILIENCE</strong><small>KAYLAH GORE · ENGINEER</small></div>
         <div className="container hero-inner">
           <div className="hero-copy">
             <p className="kicker"><span className="live-dot" /> Platform engineering · security research</p>
