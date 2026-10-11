@@ -7,8 +7,12 @@ import prowlerArticle from './articles/prowler-kubernetes.jsx'
 import opaArticle from './articles/kubernetes-opa.jsx'
 import sastDastArticle from './articles/sast-dast-tiers.jsx'
 import supplyChainArticle from './articles/software-supply-chain-tiers.jsx'
+import falcoArticle from './articles/falco-tiers.jsx'
+import kyvernoArticle from './articles/kyverno-tiers.jsx'
 
 export const posts = [
+  falcoArticle,
+  kyvernoArticle,
   supplyChainArticle,
   sastDastArticle,
   ghasArticle,
