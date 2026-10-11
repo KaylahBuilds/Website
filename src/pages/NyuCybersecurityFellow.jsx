@@ -43,9 +43,9 @@ export default function NyuCybersecurityFellow() {
       <header className="content-hero nyu-fellow-hero">
         <div className="container nyu-fellow-intro">
           <div>
-            <p className="content-kicker">Learning · Research · Practice</p>
+            <p className="content-kicker">Scholarship recipient · Spring 2026</p>
             <h1><span>NYU</span>{' '}<br /><em>Cybersecurity Fellow</em></h1>
-            <p className="nyu-fellow-lede">Where platform engineering meets security research.</p>
+            <p className="nyu-fellow-lede">I received my scholarship in the Spring 2026 semester.</p>
             <p className="nyu-fellow-description">A personal space for security learning, independently authored labs, and field notes—focused on understanding how systems break and building stronger defenses.</p>
           </div>
           <aside className="nyu-fellow-method" aria-label="My approach">
