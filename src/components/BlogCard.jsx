@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 // Short display titles keep the guide-card rhythm; articles retain their full titles.
 const cardTitles = {
+  'runreveal-detection-as-code': 'RunReveal. Detections as code.',
   'falco-runtime-security-tiers': 'Falco. Runtime signals.',
   'kyverno-policy-security-tiers': 'Kyverno. Policy that holds.',
   'software-supply-chain-security-tiers': 'Secure the supply chain.',

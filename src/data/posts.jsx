@@ -9,8 +9,10 @@ import sastDastArticle from './articles/sast-dast-tiers.jsx'
 import supplyChainArticle from './articles/software-supply-chain-tiers.jsx'
 import falcoArticle from './articles/falco-tiers.jsx'
 import kyvernoArticle from './articles/kyverno-tiers.jsx'
+import runrevealArticle from './articles/runreveal-detection-as-code.jsx'
 
 export const posts = [
+  runrevealArticle,
   falcoArticle,
   kyvernoArticle,
   supplyChainArticle,
