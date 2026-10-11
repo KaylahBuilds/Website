@@ -207,12 +207,33 @@ const post = {
 
       <h3>A passing command must mean what you think it means</h3>
       <p>
-        The vendor guide documents an unusual convention for streaming fixture runs: exit
-        code zero means no match, while one means a match. Treating every nonzero exit as a
-        broken test loses that distinction; treating every exit of one as a successful match
-        can hide an engine failure. Verify the behavior of the pinned CLI and reject unexpected
-        errors. The guide also limits this fixture-running path to streaming detections, so
-        do not describe a scheduled SQL query as locally replayed simply because it was linted.
+        The linked 2025 guide describes exit zero for no match and exit one for a match.
+        Do not carry that assumption forward unchecked. Compatibility probes for this lab’s
+        pinned <code>v2026.9.1</code> CLI showed the opposite default behavior for the tested
+        cases: a matching fixture exited zero, while a nonmatching fixture exited one. The{' '}
+        <a href="https://github.com/KaylahBuilds/runreveal-detection-as-code/actions/workflows/validate.yml">
+          repository’s native checks
+        </a>{' '}
+        set <code>--fail-no-match=false</code> so expected negative events can be inspected.
+        The harness then requires exit zero and the exact expected outcome for every input
+        event. An exit code alone is not evidence that the detection worked. Missing results
+        and unexpected errors must fail the check, not be counted as matches.
+      </p>
+      <p>
+        Another important boundary appeared in the same version: both Sigma and SQL lint
+        commands use the RunReveal API. They belong in the protected, authenticated preview
+        stage, not in secret-free pull-request checks. Public CI instead combines local
+        repository contracts with native Sigma fixture replay. Authenticated linting, scheduled
+        SQL execution, and workspace synchronization remain operator validation steps; they
+        have not been completed by this lab’s public CI.
+      </p>
+      <p>
+        The CLI also checks for authentication settings before local replay. The harness
+        supplies an explicitly invalid, nonsecret sentinel, a dummy workspace, an isolated
+        profile, and a loopback API address. This satisfies local configuration checks without
+        authenticating to RunReveal; an API dependency fails against the loopback endpoint.
+        It is not a general network sandbox. Do not replace those test settings with real
+        credentials to make a pull-request check pass.
       </p>
       <p>
         For scheduled detection windows, RunReveal recommends{' '}
