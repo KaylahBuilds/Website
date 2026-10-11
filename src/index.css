@@ -1225,6 +1225,44 @@ main {
 .article-body {
   font-size:17px
 }
+.article-table-wrap {
+  max-width:100%;
+  overflow-x:auto;
+  margin:28px 0;
+  border:1px solid var(--border)
+}
+.article-comparison {
+  width:100%;
+  min-width:580px;
+  border-collapse:collapse;
+  font-size:14px;
+  line-height:1.65
+}
+.article-comparison caption {
+  padding:18px;
+  text-align:left;
+  color:var(--text-dim);
+  background:var(--bg-raise)
+}
+.article-comparison th,.article-comparison td {
+  padding:18px;
+  text-align:left;
+  vertical-align:top;
+  border-top:1px solid var(--border)
+}
+.article-comparison thead th {
+  color:var(--green);
+  font:600 11px/1.5 var(--mono);
+  letter-spacing:.08em;
+  text-transform:uppercase
+}
+.article-comparison tbody th {
+  width:25%;
+  color:var(--text)
+}
+.article-comparison td {
+  color:var(--text-dim)
+}
 .article p {
   margin-bottom:22px;
   color:var(--text-dim);

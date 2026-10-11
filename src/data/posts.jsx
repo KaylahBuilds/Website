@@ -5,8 +5,10 @@ import ghasArticle from './articles/ghas-controls.jsx'
 import woodpeckerArticle from './articles/woodpecker-ci.jsx'
 import prowlerArticle from './articles/prowler-kubernetes.jsx'
 import opaArticle from './articles/kubernetes-opa.jsx'
+import sastDastArticle from './articles/sast-dast-tiers.jsx'
 
 export const posts = [
+  sastDastArticle,
   ghasArticle,
   woodpeckerArticle,
   prowlerArticle,

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 // Short display titles keep the guide-card rhythm; articles retain their full titles.
 const cardTitles = {
+  'sast-vs-dast-security-testing-tiers': 'SAST vs DAST. Three tiers.',
   'ghas-controls-automation-remediation': 'GHAS that earns its keep',
   'woodpecker-hardened-ci-pipelines': 'Harden the pipeline',
   'prowler-kubernetes-multicloud-scanning': 'Cloud scans. Clear boundaries.',
