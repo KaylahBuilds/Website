@@ -1,0 +1,144 @@
+.content-hero.nyu-fellow-hero {
+  background:radial-gradient(ellipse at 90% 0%,#b999ff12,transparent 60%);
+  border-bottom:1px solid var(--border)
+}
+.nyu-fellow-intro {
+  display:grid;
+  grid-template-columns:minmax(0,1.6fr) minmax(250px,.8fr);
+  align-items:end;
+  gap:clamp(30px,5vw,80px)
+}
+.content-hero.nyu-fellow-hero h1 {
+  max-width:850px;
+  font-size:clamp(46px,6.8vw,94px);
+  line-height:1;
+  overflow-wrap:break-word;
+  text-wrap:balance
+}
+.nyu-fellow-hero h1>span {
+  color:var(--violet)
+}
+.nyu-fellow-hero .nyu-fellow-lede {
+  margin-top:26px;
+  color:var(--text);
+  font-size:clamp(20px,2vw,26px);
+  line-height:1.4
+}
+.nyu-fellow-hero .nyu-fellow-description {
+  max-width:62ch;
+  margin-top:16px;
+  color:var(--text-dim);
+  font-size:17px;
+  line-height:1.7
+}
+.nyu-fellow-method {
+  padding:28px;
+  border:1px solid var(--border);
+  border-top:2px solid var(--violet);
+  background:var(--bg-raise)
+}
+.nyu-fellow-method .section-label {
+  color:var(--violet)
+}
+.nyu-fellow-method ol {
+  padding:0;
+  margin:24px 0;
+  list-style:none
+}
+.nyu-fellow-method li {
+  display:flex;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid var(--border);
+  font-size:16px;
+  line-height:1.5
+}
+.nyu-fellow-method li>span {
+  padding-top:3px;
+  color:var(--violet);
+  font:500 10px/1.6 var(--mono)
+}
+.nyu-fellow-method>p:last-child {
+  color:var(--text-dim);
+  font-size:13px;
+  line-height:1.6
+}
+.nyu-fellow-section {
+  padding-block:75px;
+  scroll-margin-top:calc(var(--nav-h) + 95px)
+}
+.nyu-fellow-section+.nyu-fellow-section {
+  border-top:1px solid var(--border)
+}
+.nyu-fellow-section .section-title {
+  line-height:1;
+  text-wrap:balance
+}
+.nyu-focus-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:20px
+}
+.nyu-focus-card {
+  min-width:0;
+  padding:30px;
+  border:1px solid var(--border);
+  background:var(--bg-raise)
+}
+.nyu-focus-number {
+  display:block;
+  margin-bottom:30px;
+  color:var(--violet);
+  font:700 36px/1 var(--guide-sans)
+}
+.nyu-focus-card h3 {
+  margin-block:18px 16px;
+  font:700 clamp(22px,2.4vw,30px)/1.2 var(--guide-sans);
+  letter-spacing:-.025em
+}
+.nyu-focus-card>p:last-child {
+  color:var(--text-dim)
+}
+.nyu-practice-panel {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+  padding:clamp(24px,4vw,55px);
+  border:1px solid var(--border);
+  border-left:3px solid var(--green);
+  background:var(--bg-raise)
+}
+.nyu-practice-panel h2 {
+  font:800 clamp(32px,4vw,52px)/1.05 var(--display);
+  text-transform:uppercase
+}
+.nyu-practice-panel em {
+  color:var(--green)
+}
+.nyu-practice-panel p:not(.kicker) {
+  color:var(--text-dim)
+}
+.nyu-practice-panel .nyu-fellow-disclaimer {
+  margin-block:18px 24px;
+  font-size:13px
+}
+@media(max-width:1050px) {
+  .nyu-fellow-intro {
+    grid-template-columns:1fr
+  }
+  .nyu-fellow-method {
+    max-width:600px
+  }
+  .nyu-focus-grid {
+    grid-template-columns:1fr
+  }
+}
+@media(max-width:800px) {
+  .nyu-fellow-section {
+    padding-block:50px
+  }
+  .nyu-practice-panel {
+    grid-template-columns:1fr;
+    gap:24px
+  }
+}

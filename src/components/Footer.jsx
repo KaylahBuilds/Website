@@ -9,6 +9,7 @@ export default function Footer() {
         <nav aria-label="Footer navigation">
           <Link to="/projects">Work</Link>
           <Link to="/blog">Field notes</Link>
+          <Link to="/nyu-cybersecurity-fellow">NYU Cybersecurity Fellow</Link>
           <Link to="/resume">Resume</Link>
           <a href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a>
           <a href={profile.twitch} target="_blank" rel="noreferrer">Twitch ↗</a>

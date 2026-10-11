@@ -265,6 +265,7 @@ main {
 }
 .nav-link {
   position:relative;
+  white-space:nowrap;
   padding:12px 0;
   color:#bdb8b0;
   font:600 10px/1.4 var(--mono);
@@ -299,6 +300,7 @@ main {
 }
 .nav-toggle {
   display:none;
+  min-height:44px;
   color:var(--text);
   border:1px solid var(--border-bright);
   padding:9px 13px;
@@ -1660,10 +1662,7 @@ code {
     border-bottom:1px solid var(--border)
   }
 }
-@media(max-width:800px) {
-  :root {
-    --nav-h:70px
-  }
+@media(max-width:1050px) {
   .nav>.container {
     flex-wrap:wrap;
     gap:0
@@ -1678,6 +1677,8 @@ code {
   .nav-links {
     display:none;
     width:100%;
+    max-height:calc(100svh - var(--nav-h));
+    overflow-y:auto;
     margin:0;
     padding:10px 0 22px;
     gap:0;
@@ -1688,6 +1689,7 @@ code {
     display:flex
   }
   .nav-link {
+    white-space:normal;
     padding:15px 0;
     border-bottom:1px solid var(--border)
   }
@@ -1697,6 +1699,11 @@ code {
   .nav-contact {
     margin-top:16px;
     justify-content:space-between
+  }
+}
+@media(max-width:800px) {
+  :root {
+    --nav-h:70px
   }
   .hero-inner {
     padding-block:85px 110px

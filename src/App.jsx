@@ -8,6 +8,7 @@ import Post from './pages/Post.jsx'
 import Projects from './pages/Projects.jsx'
 import Project from './pages/Project.jsx'
 import Resume from './pages/Resume.jsx'
+import NyuCybersecurityFellow from './pages/NyuCybersecurityFellow.jsx'
 import { initAnalytics, countPageview } from './lib/goatcounter.js'
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:slug" element={<Project />} />
             <Route path="/resume" element={<Resume />} />
+            <Route path="/nyu-cybersecurity-fellow" element={<NyuCybersecurityFellow />} />
             <Route path="*" element={<Home />} />
           </Routes>
       </main>

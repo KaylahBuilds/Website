@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { profile } from '../data/profile.js'
 
@@ -6,16 +6,23 @@ const links = [
   { to: '/', label: 'Home', end: true },
   { to: '/projects', label: 'Work' },
   { to: '/blog', label: 'Field Notes' },
+  { to: '/nyu-cybersecurity-fellow', label: 'NYU Cybersecurity Fellow' },
   { to: '/resume', label: 'Resume' },
 ]
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
+  const toggleRef = useRef(null)
   return (
-    <header className="nav">
+    <header className="nav" onKeyDown={(event) => {
+      if (event.key === 'Escape' && open) {
+        setOpen(false)
+        toggleRef.current?.focus()
+      }
+    }}>
       <div className="container">
         <Link to="/" className="nav-logo" onClick={() => setOpen(false)} aria-label="Kaylah Builds home">KAYLAH<span>BUILDS.</span></Link>
-        <button className="nav-toggle" type="button" aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}<span aria-hidden="true">{open ? '×' : '+'}</span></button>
+        <button ref={toggleRef} className="nav-toggle" type="button" aria-expanded={open} aria-controls="primary-navigation" onClick={() => setOpen(!open)}>{open ? 'Close' : 'Menu'}<span aria-hidden="true">{open ? '×' : '+'}</span></button>
         <nav className={`nav-links${open ? ' is-open' : ''}`} id="primary-navigation" aria-label="Main navigation">
           {links.map(({ to, label, end }) => (
             <NavLink
