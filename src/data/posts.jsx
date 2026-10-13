@@ -10,10 +10,8 @@ import supplyChainArticle from './articles/software-supply-chain-tiers.jsx'
 import falcoArticle from './articles/falco-tiers.jsx'
 import kyvernoArticle from './articles/kyverno-tiers.jsx'
 import runrevealArticle from './articles/runreveal-detection-as-code.jsx'
-import foundryVideoArticle from './articles/foundry-video-connectivity.jsx'
 
 export const posts = [
-  foundryVideoArticle,
   runrevealArticle,
   falcoArticle,
   kyvernoArticle,
