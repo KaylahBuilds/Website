@@ -1,13 +1,13 @@
 const post = {
   slug: 'designing-an-inference-security-lab',
-  title: 'Designing an Inference Security Lab: Terraform, GitOps, Grafana, and Kubernetes Goat',
+  title: 'LLM Inference for Cybersecurity: Architecture, Evidence, and a Measurable Security Lab',
   date: '2026-10-17',
-  tags: ['security', 'inference', 'kubernetes', 'terraform', 'gitops', 'observability'],
+  tags: ['security', 'llm', 'inference', 'architecture', 'kubernetes', 'terraform', 'gitops', 'observability'],
   excerpt:
-    'A proposed learning lab that connects local model inference with evidence-based security investigations, isolated Kubernetes exercises, and measurable deployment practices.',
+    'How an LLM turns security evidence into an analyst report—and how to design, deploy, and measure that inference pipeline with Kubernetes, Terraform, Argo CD, Grafana, and Kubernetes Goat.',
   body: (
     <>
-      <p className="section-label">Architecture / proposed lab, not a deployment report</p>
+      <p className="section-label">LLM inference / architecture / cybersecurity — proposed lab</p>
       <p>
         Running a model is one milestone. Knowing why it is slow, whether its answers are
         supported, and how to deploy it safely is a different skill set. My next learning
@@ -18,6 +18,13 @@ const post = {
         This is the design and evaluation plan, not a claim that the platform is already
         deployed. There are no measured performance gains or detection results to report yet.
         The goal is to earn those results through repeatable experiments.
+      </p>
+      <p>
+        The center of this project is the LLM inference pipeline, not a collection of
+        infrastructure tools. Four questions drive the design: what computation produces an
+        answer, what architecture delivers it reliably, what security decision it supports,
+        and what evidence proves the model is useful. Terraform, Kubernetes, Argo CD, and
+        Grafana support that pipeline; they are not substitutes for evaluating it.
       </p>
 
       <h2>Start with inference, not an autonomous SOC</h2>
@@ -58,6 +65,94 @@ const post = {
       <blockquote>
         A convincing explanation is not proof. Every important claim should point back to evidence.
       </blockquote>
+
+      <h2>Inside LLM inference: weights, context, and token generation</h2>
+      <p>
+        A large language model represents learned patterns in numerical weights. At request
+        time, token IDs become numerical representations that pass through transformer
+        layers. Attention relates relevant positions in the context; subsequent operations
+        transform those representations into scores for possible next tokens. The runtime
+        selects a token using the configured decoding strategy, adds it to the sequence,
+        and repeats until a stopping condition is reached.
+      </p>
+      <p>
+        That mechanism can support summarization, reasoning, and structured recommendations,
+        but it is not a database lookup or a guarantee of truth. The model can invent an event,
+        misread a timestamp, or confidently overstate the evidence. A larger model does not
+        eliminate those failure modes. Correctness must be tested against the investigation task.
+      </p>
+      <p>
+        Prefill and decode stress hardware differently. Prompt processing can exploit substantial
+        parallel computation; single-request decoding often spends much of its time moving
+        weights through memory. The precise bottleneck depends on the model, runtime, context,
+        and concurrency. The KV cache saves repeated attention work but grows with context and
+        active requests. Quantization reduces numerical precision and memory demand, with
+        runtime-dependent speed and quality tradeoffs that must be measured.
+      </p>
+      <p>
+        The experiment will distinguish time to first streamed token from time to a usable
+        analyst report. A stream may begin quickly while its final structured recommendation
+        takes much longer. For reasoning models, the first emitted token may not be the first
+        user-visible answer. Output length and reasoning settings therefore belong in the
+        benchmark record, alongside input length and context limits.
+      </p>
+
+      <h2>The cyber use case: investigate a Kubernetes alert</h2>
+      <p>
+        The main scenario will be an unexpected shell process in a lab workload. A runtime
+        rule supplies the alert; the LLM is not expected to discover every suspicious event
+        by reading the entire cluster. The investigation worker gathers the matching process
+        event, available parent-process details, workload identity, deployment configuration,
+        and relevant audit records if audit collection is enabled.
+      </p>
+      <p>
+        The assistant should answer a narrow question: does this evidence suggest expected
+        maintenance, suspicious execution, or an unresolved case? It should identify the
+        observations supporting its assessment, plausible alternatives, and missing evidence.
+        A shell launch alone does not establish compromise. Missing logs should remain a gap,
+        not become a fabricated attack timeline.
+      </p>
+      <ul>
+        <li><strong>Input:</strong> a bounded, redacted event bundle with stable evidence IDs and a selected playbook.</li>
+        <li><strong>Output:</strong> summary, observations, hypotheses, evidence references, missing data, and recommended checks.</li>
+        <li><strong>Validation:</strong> parse the schema, resolve references, check support for claims, and reject unauthorized actions.</li>
+        <li><strong>Decision:</strong> a human reviews the report before any containment or remediation.</li>
+      </ul>
+      <p>
+        Once that workflow is evaluated, adjacent use cases include phishing triage from
+        sanitized messages, incident timelines, and explanations of Kubernetes configuration
+        findings. They need their own labeled test cases. Success on alert summaries should
+        not be presented as proof that the model can safely perform every security task.
+      </p>
+
+      <h2>The architecture: request, deployment, and telemetry paths</h2>
+      <h3>Request path: from evidence to a report</h3>
+      <ol>
+        <li>An authenticated API accepts a case identifier, with input-size and request-rate limits.</li>
+        <li>A bounded queue absorbs bursts; the worker retrieves only authorized evidence and playbook passages.</li>
+        <li>The worker builds the prompt and calls the inference endpoint with a timeout and output budget.</li>
+        <li>The serving runtime loads the pinned model and performs prefill and decode on available hardware.</li>
+        <li>The validator checks the result before storing a report for human review. Failures return an explicit incomplete status.</li>
+      </ol>
+      <h3>Deployment path: from reviewed configuration to running services</h3>
+      <p>
+        Terraform provisions the infrastructure and bootstraps Argo CD. Argo CD reconciles
+        approved Git configuration into the cluster. Build and evaluation jobs remain separate:
+        an application being healthy in Kubernetes does not mean its model passed the security
+        evaluation. Model or prompt changes need quality checks as well as deployment checks.
+      </p>
+      <h3>Telemetry path: explain the latency, not just the outage</h3>
+      <p>
+        The API and worker emit metrics and sanitized logs. Prometheus and Loki retain those
+        signals; Grafana brings them into a common investigation view. Later, traces can separate
+        queue wait, evidence retrieval, inference, and validation time. That distinction prevents
+        blaming the GPU for delays actually caused by storage, retrieval, or an overloaded queue.
+      </p>
+      <p>
+        Kubernetes Goat remains outside the trusted platform boundary. Start with sanitized
+        exports from the isolated lab rather than give the inference service a cluster-admin
+        credential or let the vulnerable cluster reach the trusted control plane.
+      </p>
 
       <h2>One architecture, explicit ownership</h2>
       <div className="article-table-wrap" role="region" aria-label="Proposed platform responsibilities" tabIndex={0}>
