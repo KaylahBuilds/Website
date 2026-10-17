@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1120" viewBox="0 0 960 1120" role="img" aria-labelledby="title desc">
+  <title id="title">LLM inference security lab: proposed architecture</title>
+  <desc id="desc">Terraform provisions infrastructure. Git and Argo CD deploy the trusted services. An isolated Kubernetes Goat lab exports sanitized evidence. An API queues investigations; a worker retrieves evidence and invokes the LLM runtime on the GPU. A validator produces an analyst report for human review. Metrics and logs flow to Prometheus and Loki and then Grafana. The vulnerable lab has no trusted administrator credentials.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#80c6c0"/></marker>
+    <marker id="muted" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#a6b4c8"/></marker>
+    <style>
+      text{font-family:system-ui,-apple-system,Segoe UI,sans-serif;fill:#eef2f8;font-size:17px}
+      .heading{font-size:26px;font-weight:600}.label{font-size:15px;letter-spacing:1px;fill:#a6b4c8}.name{font-size:19px;font-weight:600}.detail{font-size:16px;fill:#b9c5d5}
+      .box{fill:#182536;stroke:#40546b;stroke-width:1.5;rx:10}.flow{fill:none;stroke:#80c6c0;stroke-width:2;marker-end:url(#arrow)}.control{fill:none;stroke:#a6b4c8;stroke-width:1.7;stroke-dasharray:6 5;marker-end:url(#muted)}
+    </style>
+  </defs>
+  <rect width="960" height="1120" rx="16" fill="#0c1522"/>
+  <text x="32" y="45" class="heading">LLM inference for cybersecurity</text>
+  <text x="32" y="73" class="detail">Proposed target architecture · evidence in, reviewed decisions out</text>
+
+  <text x="32" y="112" class="label">DEPLOYMENT CONTROL — OUTSIDE THE REQUEST PATH</text>
+  <rect x="32" y="130" width="260" height="80" class="box"/>
+  <text x="50" y="161" class="name">Terraform</text><text x="50" y="188" class="detail">Infrastructure + bootstrap</text>
+  <rect x="350" y="130" width="260" height="80" class="box"/>
+  <text x="368" y="161" class="name">Git repository</text><text x="368" y="188" class="detail">Reviewed config · no secrets</text>
+  <rect x="668" y="130" width="260" height="80" class="box"/>
+  <text x="686" y="161" class="name">Argo CD</text><text x="686" y="188" class="detail">Reconcile application config</text>
+  <path d="M610 170H664" class="control"/>
+  <path d="M162 210V238H12V440H32" class="control"/>
+  <path d="M798 210V238H948V440H928" class="control"/>
+
+  <rect x="32" y="264" width="896" height="130" rx="12" fill="#261f24" stroke="#c28b70" stroke-dasharray="7 5"/>
+  <text x="50" y="292" class="label">ISOLATED, DISPOSABLE VM / CLUSTER</text>
+  <text x="50" y="326" class="name">Kubernetes Goat</text>
+  <text x="50" y="354" class="detail">Controlled scenarios + security sensors</text>
+  <text x="50" y="378" class="detail">No personal mounts or trusted admin credentials</text>
+  <rect x="638" y="309" width="270" height="65" class="box"/>
+  <text x="655" y="336" class="name">Sanitized evidence export</text>
+  <text x="655" y="359" class="detail">Initially a manual transfer</text>
+  <path d="M480 342H632" class="flow"/>
+
+  <rect x="32" y="414" width="896" height="438" rx="12" fill="#101e2a" stroke="#537f82" stroke-width="1.5"/>
+  <text x="50" y="446" class="label">TRUSTED PLATFORM — KUBERNETES TARGET STATE</text>
+  <path d="M773 374V467" class="flow"/>
+  <rect x="52" y="474" width="390" height="78" class="box"/>
+  <text x="70" y="504" class="name">1 / Investigation API + queue</text>
+  <text x="70" y="531" class="detail">Authentication · input limits · bounded work</text>
+  <rect x="518" y="474" width="390" height="78" class="box"/>
+  <text x="536" y="504" class="name">2 / Evidence worker</text>
+  <text x="536" y="531" class="detail">Retrieve playbook · redact · build prompt</text>
+  <path d="M442 513H512" class="flow"/>
+  <path d="M713 552V586" class="flow"/>
+  <rect x="518" y="592" width="390" height="94" class="box"/>
+  <text x="536" y="621" class="name">3 / LLM inference runtime + GPU</text>
+  <text x="536" y="648" class="detail">Unsloth-compatible headless server</text>
+  <text x="536" y="672" class="detail">Prefill → KV cache → token-by-token decode</text>
+  <rect x="52" y="592" width="390" height="94" class="box"/>
+  <text x="70" y="621" class="name">Persistent model storage</text>
+  <text x="70" y="648" class="detail">Pinned weights · Qwen on the 5090</text>
+  <text x="70" y="672" class="detail">Full GLM-5.3 needs a larger-memory host</text>
+  <path d="M442 638H512" class="flow"/>
+  <path d="M713 686V725" class="flow"/>
+  <rect x="518" y="731" width="390" height="78" class="box"/>
+  <text x="536" y="761" class="name">4 / Report validator</text>
+  <text x="536" y="788" class="detail">Schema · evidence IDs · unsupported claims</text>
+  <rect x="52" y="731" width="390" height="78" class="box"/>
+  <text x="70" y="761" class="name">5 / Human review</text>
+  <text x="70" y="788" class="detail">Approve next steps; no automatic remediation</text>
+  <path d="M518 770H448" class="flow"/>
+  <text x="52" y="835" class="detail">Model access is bounded and read-only. No cluster-admin tools.</text>
+
+  <path d="M480 852V887" class="control"/>
+  <text x="498" y="877" class="detail">Instrumented metrics + sanitized logs</text>
+  <rect x="32" y="895" width="896" height="160" rx="12" fill="#171c2b" stroke="#65718d"/>
+  <text x="50" y="925" class="label">OBSERVABILITY — MONITORS THE PLATFORM, NOT A DETECTION ENGINE</text>
+  <rect x="52" y="945" width="240" height="85" class="box"/>
+  <text x="70" y="975" class="name">Collection</text><text x="70" y="1003" class="detail">Prometheus scrapes / Alloy</text>
+  <rect x="350" y="945" width="260" height="85" class="box"/>
+  <text x="368" y="975" class="name">Prometheus + Loki</text><text x="368" y="1003" class="detail">Metrics + logs; traces later</text>
+  <rect x="668" y="945" width="240" height="85" class="box"/>
+  <text x="686" y="975" class="name">Grafana</text><text x="686" y="1003" class="detail">Dashboards + alerts</text>
+  <path d="M292 988H344" class="control"/><path d="M610 988H662" class="control"/>
+  <text x="32" y="1090" class="detail">Solid arrows: evidence / requests / model loading     Dashed arrows: deployment / telemetry</text>
+</svg>

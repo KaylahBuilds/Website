@@ -1,3 +1,5 @@
+import architectureDiagram from './inference-security-architecture.svg'
+
 const post = {
   slug: 'designing-an-inference-security-lab',
   title: 'LLM Inference for Cybersecurity: Architecture, Evidence, and a Measurable Security Lab',
@@ -126,6 +128,18 @@ const post = {
       </p>
 
       <h2>The architecture: request, deployment, and telemetry paths</h2>
+      <figure className="article-figure">
+        <a href={architectureDiagram} target="_blank" rel="noopener noreferrer" aria-label="Open the inference security architecture diagram at full size">
+          <img src={architectureDiagram} width="960" height="1120" loading="lazy"
+            alt="Proposed architecture: Terraform creates the trusted infrastructure; Git and Argo CD manage workloads. An isolated Kubernetes Goat lab provides sanitized evidence to an investigation API. A worker retrieves evidence, sends a bounded prompt to the LLM runtime on a GPU, validates the report, and returns it for human review. Prometheus and Loki feed Grafana. The model has no cluster-admin access." />
+        </a>
+        <figcaption>
+          Proposed target architecture. Solid arrows show evidence and request flow; dashed
+          arrows show deployment and telemetry. Goat is a separate disposable environment,
+          not another namespace in the trusted cluster. Open the diagram for a full-size view.
+          During the first learning stage, the model server can remain outside Kubernetes.
+        </figcaption>
+      </figure>
       <h3>Request path: from evidence to a report</h3>
       <ol>
         <li>An authenticated API accepts a case identifier, with input-size and request-rate limits.</li>
